@@ -4,17 +4,17 @@ An example showing how to overlay 3D models on interactive Google Street View Pa
 
 You can "try before you buy" :-P <http://rbejar.github.io/3DMappingExperiments/WebGLTests/StreetViewOverlay_EINA.html>. That is not the same code included in this repository, but the differences are negligible.
 
-It shows a 3D model (a ferris wheel) placed on a parking lot (behind my building at [EINA - Universidad de Zaragoza](http://eina.unizar.es)) with a Google Street View Panorama as the background. You can change the viewpoint and zoom in and out, and the model keeps its position and rotates as the viewpoint changes. You can also change the panorama (among a fixed set of them), by clicking the spacebar, to see the 3D wheel in its place from different points. The panoramas are included via the API offered by Google, but the user interaction (keys, mouse) has been developed for the example.
+It shows a 3D model (a ferris wheel) placed on a parking lot (behind my building at [EINA - Universidad de Zaragoza](http://eina.unizar.es)) with a Google Street View Panorama as the background. You can change the viewpoint and zoom in and out, and the model keeps its position and rotates as the viewpoint changes. You can also change the panorama, among a fixed set of them, by clicking the spacebar to see the 3D wheel in its place from different points. The panoramas are included via the API offered by Google, but the user interaction (keys, mouse) has been developed for the example.
 
-There are a number of parameters related to the Street View Panoramas which have been established by trial-and-error, and are thus imprecise. The method itself is imprecise, as the distortion in the panoramic images is not uniform, and this will be very difficult to make up for, but even thus it may be useful for different purposes. 
+There are a number of parameters related to the Street View Panoramas which have been established by trial-and-error. This means that both the position and orientation of the ferris wheel is not very precise. The method itself is not very precise, as the distortion in the panoramic images is not uniform, and this will be difficult to make up for, but even thus it may be useful for different purposes. 
 
-It works better with WebGL support in the browser, but it will automatically fall back to a simpler version if WebGL support is not detected. It has been reported to work at least in the latest versions of Firefox in Windows, Linux and Mac OS X, Chrome/ium in Linux and Windows and Internet Explorer 10 in Windows.
+It works better with WebGL support in the browser, but it will automatically fall back to a simpler version if WebGL support is not detected (thanks three.js!). It has been reported to work at least in the current versions of Firefox in Windows, Linux and Mac OS X, Chrome/ium in Linux and Windows and Internet Explorer 10 in Windows.
 
 The code is not a terrible mess, but it is not something to be terribly proud of either ;-)
 
 
 ## Credits
-The ferris wheel 3D model has been downloaded from <http://www.archibaseplanet.com/download/33b26753.html>.
+The ferris wheel 3D model has been downloaded from <http://www.archibaseplanet.com/download/33b26753.html>, transformed to obj with <http://www.greentoken.de/onlineconv/> and then to the three.js format with <https://github.com/mrdoob/three.js/blob/master/utils/converters/obj/convert_obj_three.py>.
 
 ## three.js
 <http://threejs.org/>
@@ -30,4 +30,3 @@ Released under the MIT license
 Copyright (c) 2013 Brandon Aaron <http://brandon.aaron.sh>
 Licensed under the MIT License
 Version: 3.1.6
-
