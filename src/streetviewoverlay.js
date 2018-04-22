@@ -87,7 +87,7 @@ function StreetViewOverlay() {
                       
             if (SVO.showing.webGL) {                
                 if (Detector.webgl) {
-                    SVO.renderer = new THREE.WebGLRenderer();
+                    SVO.renderer = new THREE.WebGLRenderer({alpha: true});
                 } else {                    
                     SVO.renderer = new THREE.CanvasRenderer();
                     $("#help").append('<p>WebGL not supported. A slower and less pretty version is shown.</p>');
@@ -99,7 +99,7 @@ function StreetViewOverlay() {
                 $("#help").append('<p><a target="_blank" href="http://www.khronos.org/webgl/wiki_1_15/index.php/Getting_a_WebGL_Implementation">Click here to find out how to activate WebGL support</a></p>');
             }
             SVO.renderer.setClearColor(0x000000, 0); // TRANSPARENT BACKGROUND        
-            SVO.renderer.shadowMapEnabled = true; // For shadows to be shown
+            SVO.renderer.shadowMap.enabled = true; // For shadows to be shown
             
             SVO.$container = $('#' + SVO.THREEJS_DIV_ID);
             SVO.container = SVO.$container.get(0);
@@ -150,7 +150,7 @@ function StreetViewOverlay() {
         }              
         
         SVO.camera.aspect = SVO.$container.width() / SVO.$container.height();
-        SVO.camera.setLens(SVO.cameraParams.focalLength); 
+        SVO.camera.setFocalLength(SVO.cameraParams.focalLength); 
                               
         SVO.camera.position = SVO.currentPanorama.position;
                        
@@ -252,7 +252,7 @@ function StreetViewOverlay() {
             }            
             
             
-            SVO.camera.setLens(SVO.cameraParams.focalLength);
+            SVO.camera.setFocalLength(SVO.cameraParams.focalLength);
             SVO.camera.updateProjectionMatrix();
             
             SVO.updateStreetView();
@@ -308,7 +308,7 @@ function StreetViewOverlay() {
             
             if (SVO.showing.streetView) {
               SVO.cameraParams.focalLength = SVO.streetViewFocalLenght();
-              SVO.camera.setLens(SVO.cameraParams.focalLength);    
+              SVO.camera.setFocalLength(SVO.cameraParams.focalLength);    
             }                                    
             SVO.camera.updateProjectionMatrix();            
             

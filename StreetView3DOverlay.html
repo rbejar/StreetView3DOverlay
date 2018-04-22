@@ -68,8 +68,10 @@
         
         <script src="lib/jquery-2.0.3.js"></script>
         <script src="lib/jquery.mousewheel.js"></script>
-		<script src="lib/three.min.js"></script>
-		<script src="lib/Detector.js"></script>
+		<!--<script src="lib/three.min.js"></script>-->
+		<script src="lib/three.js">// This one for debugging</script>
+		<script src="lib/TDSLoader.js"></script>
+		<script src="lib/Detector.js"></script>		
 		<script src="src/streetviewoverlay.js"></script>
 
 		<script>
@@ -110,43 +112,87 @@
             return {'x': xy.x, 'y': 0, 'z': -xy.y};
         }
         
-		var jsonLoader = new THREE.JSONLoader();
-        jsonLoader.load( "model3d/wheel.js", loadWheel );
-        
-		function loadWheel(geometry, materials) {
-		    var mesh;
-            mesh = new THREE.Mesh(geometry, 
-                                      new THREE.MeshFaceMaterial(materials));
-    
-            meshPos =  latLon2ThreeMeters(objectPosition[0], objectPosition[1]);                         
-                                                  
-            mesh.geometry.computeBoundingBox();
-            var xsize = mesh.geometry.boundingBox.max.x - mesh.geometry.boundingBox.min.x;
-            var ysize = mesh.geometry.boundingBox.max.y - mesh.geometry.boundingBox.min.y;
-            var zsize = mesh.geometry.boundingBox.max.z - mesh.geometry.boundingBox.min.z;
-            // Sizes in meters
-            var desiredXSize = 10; 
-            var desiredYSize = 30; 
-            var desiredZSize = 30; 
-            
-            mesh.scale.x = desiredXSize / xsize;
-            mesh.scale.y = desiredYSize / ysize;
-            mesh.scale.z = desiredZSize / zsize;
-            
-            mesh.position.x = meshPos.x;
-            mesh.position.y = meshPos.y - 2; // the parking lot is sligthly under the street level
-            mesh.position.z = meshPos.z;
-            
-            mesh.rotation.y = Math.PI/2;
+	var loader = new THREE.TDSLoader( );
+				loader.setPath( 'model3d/' );
+				loader.load( 'model3d/wheel.3ds', loadWheel );
+								
+        function loadWheel ( object ) {
+            meshPos =  latLon2ThreeMeters(objectPosition[0], objectPosition[1]);
+            object.traverse( function ( child ) {
+                if ( child instanceof THREE.Mesh ) {                    
+                    child.geometry.computeBoundingBox();
+           
+                    child.receiveShadow = true; var xsize = child.geometry.boundingBox.max.x - child.geometry.boundingBox.min.x;
+                    var ysize = child.geometry.boundingBox.max.y - child.geometry.boundingBox.min.y;
+                    var zsize = child.geometry.boundingBox.max.z - child.geometry.boundingBox.min.z;
+                    // Sizes in meters
+                    var desiredXSize = 10; 
+                    var desiredYSize = 30; 
+                    var desiredZSize = 30; 
+                    
+                    child.scale.x = desiredXSize / xsize;
+                    child.scale.y = desiredYSize / ysize;
+                    child.scale.z = desiredZSize / zsize;
+                    
+                    child.position.x = meshPos.x;
+                    child.position.y = meshPos.y - 2; // the parking lot is sligthly under the street level
+                    child.position.z = meshPos.z;
+                    
+                    child.rotation.y = Math.PI/2;
 
-            // For shadows (given the right ligths, and that renderer enables them)
-            mesh.castShadow = true;
-            mesh.receiveShadow = true;
-            
-            var streetViewOverlay = StreetViewOverlay();
-             // 41.684196,-0.888992 is a street close to the parking lot behind Ada Byron building
-            streetViewOverlay.load({streetView: true, objects3D: true, webGL:true}, mesh, 41.684196,-0.888992);           
-        }
+                    // For shadows (given the right ligths, and that renderer enables them)
+                    child.castShadow = true;
+                            
+                    
+                }
+            } );		
+	    var streetViewOverlay = StreetViewOverlay();
+            // 41.684196,-0.888992 is a street close to the parking lot behind Ada Byron building
+           streetViewOverlay.load({streetView: true, objects3D: true, webGL:true}, object, 41.684196,-0.888992);     
+	}
+
+	
+	
+	
+	
+	
+	//var jsonLoader = new THREE.JSONLoader();
+        //jsonLoader.load( "model3d/wheel.js", loadWheel );
+        
+// 		function loadWheel(geometry, materials) {
+// 		    var mesh;
+//             mesh = new THREE.Mesh(geometry, 
+//                                       new THREE.MeshFaceMaterial(materials));
+//     
+//             meshPos =  latLon2ThreeMeters(objectPosition[0], objectPosition[1]);                         
+//                                                   
+//             mesh.geometry.computeBoundingBox();
+//             var xsize = mesh.geometry.boundingBox.max.x - mesh.geometry.boundingBox.min.x;
+//             var ysize = mesh.geometry.boundingBox.max.y - mesh.geometry.boundingBox.min.y;
+//             var zsize = mesh.geometry.boundingBox.max.z - mesh.geometry.boundingBox.min.z;
+//             // Sizes in meters
+//             var desiredXSize = 10; 
+//             var desiredYSize = 30; 
+//             var desiredZSize = 30; 
+//             
+//             mesh.scale.x = desiredXSize / xsize;
+//             mesh.scale.y = desiredYSize / ysize;
+//             mesh.scale.z = desiredZSize / zsize;
+//             
+//             mesh.position.x = meshPos.x;
+//             mesh.position.y = meshPos.y - 2; // the parking lot is sligthly under the street level
+//             mesh.position.z = meshPos.z;
+//             
+//             mesh.rotation.y = Math.PI/2;
+// 
+//             // For shadows (given the right ligths, and that renderer enables them)
+//             mesh.castShadow = true;
+//             mesh.receiveShadow = true;
+//             
+//             var streetViewOverlay = StreetViewOverlay();
+//              // 41.684196,-0.888992 is a street close to the parking lot behind Ada Byron building
+//             streetViewOverlay.load({streetView: true, objects3D: true, webGL:true}, mesh, 41.684196,-0.888992);           
+//         }
 
 		</script>
 	</body>
