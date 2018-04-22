@@ -2,7 +2,7 @@
 
 An example showing how to overlay 3D models on interactive Google Street View Panoramas using [three.js](http://threejs.org/). 
 
-You can "try before you buy" :-P <http://rbejar.github.io/3DMappingExperiments/WebGLTests/StreetViewOverlay_EINA.html>. That is not the same code included in this repository, but the differences are negligible.
+You can "try before you buy" :-P <http://rbejar.github.io/streetviewdemo/StreetView3DOverlay.html>. That is not the same code included in this repository, but the differences are negligible.
 
 It shows a 3D model (a ferris wheel) placed on a parking lot (behind my building at [EINA - Universidad de Zaragoza](http://eina.unizar.es)) with a Google Street View Panorama as the background. You can change the viewpoint and zoom in and out, and the model keeps its position and rotates as the viewpoint changes. You can also change the panorama, among a fixed set of them, by clicking the spacebar to see the 3D wheel in its place from different points. The panoramas are included via the API offered by Google, but the user interaction (keys, mouse) has been developed for the example.
 
