@@ -10,11 +10,11 @@ There are a number of parameters related to the Street View Panoramas which have
 
 It works better with WebGL support in the browser, but it will automatically fall back to a simpler version if WebGL support is not detected (thanks three.js!). It has been reported to work at least in the current versions of Firefox in Windows, Linux and Mac OS X, Chrome/ium in Linux and Windows and Internet Explorer 10 in Windows.
 
-The code is not a terrible mess, but it is not something to be terribly proud of either ;-)
+The code is not a terrible mess, but it is not following current Web developement standards and it has a few hacks in it (read the comments).
 
 
 ## Credits
-The ferris wheel 3D model has been downloaded from <http://www.archibaseplanet.com/download/33b26753.html>, transformed to obj with <http://www.greentoken.de/onlineconv/> and then to the three.js format with <https://github.com/mrdoob/three.js/blob/master/utils/converters/obj/convert_obj_three.py>.
+The ferris wheel 3D model has been downloaded from <http://www.archibaseplanet.com/download/33b26753.html> and loaded into the scene with the 3DS Loader of three.js.
 
 ## three.js
 <http://threejs.org/>
